@@ -2,19 +2,22 @@ const xss = require("xss");
 
 const LogsService = {
   getLogs(db) {
-    return db.from("logs").select("*");
-    // .limit(10);
+    return db.from("log").select("*").limit(10).orderBy("id", "desc");
   },
-  postLog(db, result) {
-    return db.insert({ result }).into("logs").returning("*");
+  insertLog(db, result) {
+    return db
+      .insert({ result })
+      .into("log")
+      .returning("*")
+      .then((result) => result);
   },
   serializeLogs(logs) {
     return logs.map((log) => this.serializeLog(log));
   },
-  serializelog(log) {
+  serializeLog(log) {
     return {
       id: log.id,
-      result: xss(log.name),
+      result: xss(log.result),
     };
   },
 };

@@ -1,10 +1,16 @@
-"use strict";
+const knex = require("knex");
+const { server, app } = require("./app");
+const { PORT, DB_URL } = require("./config");
+const ioService = require("./ioService");
 
-require("dotenv").config();
+const db = knex({
+  client: "pg",
+  connection: DB_URL,
+});
 
-const app = require("./app");
-const { PORT } = require("./config");
+app.set("db", db);
+ioService.setApp(app);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`);
 });
