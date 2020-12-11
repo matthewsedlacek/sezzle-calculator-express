@@ -1,29 +1,41 @@
 {
   "name": "sezzle-calculator-express",
   "version": "0.0.1",
-  "description": "",
+  "description": "An application that provides multi-user chat with calculator functions in real-time",
   "main": "src/server.js",
   "scripts": {
     "test": "mocha --require test/setup.js",
     "dev": "nodemon src/server.js",
+    "migrate": "postgrator --config postgrator-config.js",
+    "migrate-production": "postgrator --config postgrator-production-config.js",
     "start": "node src/server.js",
-    "predeploy": "npm audit",
+    "predeploy": "npm audit && npm run migrate-production",
     "deploy": "git push heroku master"
   },
   "keywords": [],
   "author": "Matthew Sedlacek",
   "license": "MIT",
   "dependencies": {
+    "@sendgrid/mail": "^6.3.1",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "helmet": "^3.15.0",
-    "morgan": "^1.9.1"
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.16.3",
+    "morgan": "^1.9.1",
+    "nodemailer": "^5.1.1",
+    "pg": "^7.9.0",
+    "postgrator": "^3.9.0",
+    "sendgrid": "^5.2.3",
+    "xss": "^1.0.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^5.2.0",
+    "mocha": "^6.0.2",
     "nodemon": "^1.18.9",
+    "postgrator-cli": "^3.1.0",
     "supertest": "^3.3.0"
   }
 }

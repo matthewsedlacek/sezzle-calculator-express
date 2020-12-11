@@ -1,5 +1,3 @@
-"use strict";
-
 require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
@@ -16,9 +14,7 @@ app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
 
-app.get("/", (req, res) => {
-  res.send("Hello, world!");
-});
+app.use("/api/logs", logsRouter);
 
 app.use(function errorHandler(error, req, res, next) {
   let response;
